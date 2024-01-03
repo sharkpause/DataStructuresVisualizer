@@ -3,8 +3,6 @@ export default class LinkedList {
 		this.head = null;
 		this.tail = null;
 		this.size = 0;
-
-		this.addNode = this.addNode.bind(this);
 	}
 
 	addNode(val) {
@@ -18,6 +16,33 @@ export default class LinkedList {
 		++this.size;
 	}
 
+	removeNode(index) {
+		if(index === this.size - 1) {
+			this.removeLast();
+		} else if(index === 0) {
+			this.removeFirst();
+		}
+
+		--this.size;
+	}
+
+	removeLast() {
+		let pointer = this.head;
+
+		while(pointer.next.next !== null) {
+			pointer = pointer.next;
+		}
+
+		pointer.next = null;
+		this.tail = pointer;
+	}
+
+	removeFirst() {
+		const nextPointer = this.head.next;
+		this.head = null;
+		this.head = nextPointer;
+	}
+
 	returnNodes() {
 		const arr = [];
 
@@ -29,6 +54,10 @@ export default class LinkedList {
 
 		return arr;
 	}
+
+	returnSize() {
+		return this.size;
+	}
 }
 
 class Node {
@@ -37,3 +66,15 @@ class Node {
 		this.next = null;
 	}
 }
+
+const list = new LinkedList();
+
+list.addNode(10);
+list.addNode(20);
+list.addNode(30);
+list.addNode(40);
+
+list.removeNode(0);
+
+console.log(list.returnNodes());
+console.log(list.returnSize());
