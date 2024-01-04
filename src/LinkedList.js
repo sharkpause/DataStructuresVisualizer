@@ -66,15 +66,3 @@ class Node {
 		this.next = null;
 	}
 }
-
-const list = new LinkedList();
-
-list.addNode(10);
-list.addNode(20);
-list.addNode(30);
-list.addNode(40);
-
-list.removeNode(0);
-
-console.log(list.returnNodes());
-console.log(list.returnSize());
