@@ -16,12 +16,16 @@ export default class LinkedList {
 		++this.size;
 	}
 
-	removeNode(index) {
-		if(index === this.size - 1) {
-			this.removeLast();
-		} else if(index === 0) {
-			this.removeFirst();
-		}
+	removeAt(index) {
+		let pointer = this.head;
+
+		for(let i = 0; i < index-1; ++i, pointer = pointer.next) {}
+
+		console.log(pointer);
+
+		const NNN = pointer.next.next;
+		pointer.next = null;
+		pointer.next = NNN;
 
 		--this.size;
 	}
@@ -35,12 +39,16 @@ export default class LinkedList {
 
 		pointer.next = null;
 		this.tail = pointer;
+
+		--this.size;
 	}
 
 	removeFirst() {
 		const nextPointer = this.head.next;
 		this.head = null;
 		this.head = nextPointer;
+
+		--this.size;
 	}
 
 	returnNodes() {
@@ -66,3 +74,13 @@ class Node {
 		this.next = null;
 	}
 }
+
+const list = new LinkedList();
+
+list.addNode(10);
+list.addNode(20);
+list.addNode(30);
+list.addNode(40);
+list.addNode(50);
+
+console.log(list.returnNodes());
