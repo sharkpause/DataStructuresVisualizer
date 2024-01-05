@@ -48,6 +48,16 @@ export default class List extends React.Component {
 		});
 	}
 
+	handleDeleteNode(index) {
+		const newLinkedList = this.state.LinkedList;
+		newLinkedList.removeAt(index);
+
+		this.setState({
+			LinkedList: newLinkedList,
+			showDeleteButton: false
+		});
+	}
+
 	addNewNodePrompt() {
 		return (
 			<Form>
@@ -64,7 +74,7 @@ export default class List extends React.Component {
 
 	addDeleteButton() {
 		return (
-			<Button onMouseOut={this.hideDeleteButton}>Hihihiha</Button>
+			<Button onClick={() => this.handleDeleteNode()} onMouseOut={this.hideDeleteButton}>Hihihiha</Button>
 		);
 	}
 
@@ -101,9 +111,7 @@ export default class List extends React.Component {
 				{showNewNodePrompt ? this.addNewNodePrompt() : null}
 				{showDeleteButton ? this.addDeleteButton() : null}
 				
-				<br />
-
-				{listNodes}
+				{listNodes} // Turn list nodes into own component
 			</div>
 		);
 	}
