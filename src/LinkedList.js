@@ -75,12 +75,12 @@ class Node {
 	}
 }
 
-const list = new LinkedList();
-
-list.addNode(10);
-list.addNode(20);
-list.addNode(30);
-list.addNode(40);
-list.addNode(50);
-
-console.log(list.returnNodes());
+//const list = new LinkedList();
+//
+//list.addNode(10);
+//list.addNode(20);
+//list.addNode(30);
+//list.addNode(40);
+//list.addNode(50);
+//
+//console.log(list.returnNodes());

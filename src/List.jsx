@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import LinkedList from './LinkedList.js';
+import ListNode from './ListNode.jsx';
 
 export default class List extends React.Component {
 	constructor(props) {
@@ -13,17 +14,13 @@ export default class List extends React.Component {
 			LinkedList: new LinkedList(),
 			showNewNodePrompt: false,
 			addNewNodeValue: 0,
-			showDeleteButton: false
 		}
 
 		this.addNewNode = this.addNewNode.bind(this);
 		this.handleAddNewNode = this.handleAddNewNode.bind(this);
 		this.updateAddNewNodeValue = this.updateAddNewNodeValue.bind(this);
 		this.addNewNodePrompt = this.addNewNodePrompt.bind(this);
-		this.showDeleteButton = this.showDeleteButton.bind(this);
-		this.hideDeleteButton = this.hideDeleteButton.bind(this);
 		this.getListNodes = this.getListNodes.bind(this);
-		this.addDeleteButton = this.addDeleteButton.bind(this);
 	}
 
 	updateAddNewNodeValue(event) {
@@ -48,16 +45,6 @@ export default class List extends React.Component {
 		});
 	}
 
-	handleDeleteNode(index) {
-		const newLinkedList = this.state.LinkedList;
-		newLinkedList.removeAt(index);
-
-		this.setState({
-			LinkedList: newLinkedList,
-			showDeleteButton: false
-		});
-	}
-
 	addNewNodePrompt() {
 		return (
 			<Form>
@@ -72,32 +59,13 @@ export default class List extends React.Component {
 		);
 	}
 
-	addDeleteButton() {
-		return (
-			<Button onClick={() => this.handleDeleteNode()} onMouseOut={this.hideDeleteButton}>Hihihiha</Button>
-		);
-	}
-
 	getListNodes() {
-		return this.state.LinkedList.returnNodes().map((node, index) => <span onMouseOver={this.showDeleteButton} key={index}>{node}</span>);
-	}
-
-	showDeleteButton() {
-		this.setState({
-			showDeleteButton: true
-		});
-	}
-
-	hideDeleteButton() {
-		this.setState({
-			showDeleteButton: false
-		});
+		return this.state.LinkedList.returnNodes().map((nodeVal, index) => <ListNode key={index} nodeVal={nodeVal} />);
 	}
 
 	render() {
 		const listNodes = this.getListNodes();
 		const showNewNodePrompt = this.state.showNewNodePrompt;
-		const showDeleteButton = this.state.showDeleteButton;
 
 		return (
 			<div>
@@ -109,9 +77,8 @@ export default class List extends React.Component {
 				<p>List size: {this.state.LinkedList.size}</p>
 
 				{showNewNodePrompt ? this.addNewNodePrompt() : null}
-				{showDeleteButton ? this.addDeleteButton() : null}
-				
-				{listNodes} // Turn list nodes into own component
+
+				{listNodes}
 			</div>
 		);
 	}
