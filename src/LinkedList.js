@@ -17,6 +17,8 @@ export default class LinkedList {
 	}
 
 	removeAt(index) {
+		if(index === 0) return this.removeFirst();
+		if(index === this.size-1) return this.removeLast();
 		let pointer = this.head;
 
 		for(let i = 0; i < index-1; ++i, pointer = pointer.next) {}
