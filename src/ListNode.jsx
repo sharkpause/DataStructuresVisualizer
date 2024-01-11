@@ -10,15 +10,13 @@ export default class ListNode extends React.Component {
 			showDeleteButton: false,
 			value: this.props.value,
 			index: this.props.index,
-			LinkedList: this.props.LinkedList
+			handleDeleteNode: this.props.handleDeleteNode
 		};
 
 		this.showDeleteButton = this.showDeleteButton.bind(this);
 		this.hideDeleteButton = this.hideDeleteButton.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
 		this.deleteButtonPrompt = this.deleteButtonPrompt.bind(this);
-
-		console.log(this.props);
 	}
 
 	showDeleteButton() {
@@ -34,12 +32,7 @@ export default class ListNode extends React.Component {
 	}
 
 	deleteNode() {
-		const newList = this.state.LinkedList;
-		newList.removeAt(this.state.index);
-
-		this.setState({
-			LinkedList: newList
-		});
+		this.state.handleDeleteNode(this.state.index);
 	}
 
 	deleteButtonPrompt() {

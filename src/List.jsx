@@ -21,6 +21,7 @@ export default class List extends React.Component {
 		this.updateAddNewNodeValue = this.updateAddNewNodeValue.bind(this);
 		this.addNewNodePrompt = this.addNewNodePrompt.bind(this);
 		this.getListNodes = this.getListNodes.bind(this);
+		this.handleDeleteNode = this.handleDeleteNode.bind(this);
 	}
 
 	updateAddNewNodeValue(event) {
@@ -30,7 +31,8 @@ export default class List extends React.Component {
 	}
 
 	addNewNode(val) {
-		const newLinkedList = this.state.LinkedList;
+		const newLinkedList = new LinkedList();
+		newLinkedList.copyList(this.state.LinkedList);
 		newLinkedList.addNode(val);
 
 		this.setState({
@@ -42,6 +44,16 @@ export default class List extends React.Component {
 	handleAddNewNode() {
 		this.setState({
 			showNewNodePrompt: true
+		});
+	}
+
+	handleDeleteNode(index) {
+		const newLinkedList = new LinkedList();
+		newLinkedList.copyList(this.state.LinkedList);
+		newLinkedList.removeAt(index);
+
+		this.setState({
+			LinkedList: newLinkedList,
 		});
 	}
 
@@ -60,7 +72,7 @@ export default class List extends React.Component {
 	}
 
 	getListNodes() {
-		return this.state.LinkedList.returnNodes().map((node, index) => <ListNode key={index} value={node} index={index} LinkedList={this.state.LinkedList} />);
+		return this.state.LinkedList.returnNodes().map((node, index) => <ListNode key={index} value={node} index={index} handleDeleteNode={this.handleDeleteNode} />);
 	}
 
 	render() {

@@ -65,6 +65,13 @@ export default class LinkedList {
 		return arr;
 	}
 
+	copyList(originList) {
+		const nodes = originList.returnNodes();
+		for(let i = 0; i < nodes.length; ++i) {
+			this.addNode(nodes[i]);
+		}
+	}
+
 	returnSize() {
 		return this.size;
 	}
@@ -85,4 +92,10 @@ class Node {
 //list.addNode(40);
 //list.addNode(50);
 //
+//const copiedList = new LinkedList();
+//copiedList.copyList(list);
+//
+//copiedList.addNode(60);
+//
 //console.log(list.returnNodes());
+//console.log(copiedList.returnNodes());
