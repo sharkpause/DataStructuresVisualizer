@@ -23,8 +23,6 @@ export default class LinkedList {
 
 		for(let i = 0; i < index-1; ++i, pointer = pointer.next) {}
 
-		console.log(pointer);
-
 		const NNN = pointer.next.next;
 		pointer.next = null;
 		pointer.next = NNN;

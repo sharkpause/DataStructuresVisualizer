@@ -72,7 +72,11 @@ export default class List extends React.Component {
 	}
 
 	getListNodes() {
-		return this.state.LinkedList.returnNodes().map((node, index) => <ListNode key={index} value={node} index={index} handleDeleteNode={this.handleDeleteNode} />);
+		let id;
+		return this.state.LinkedList.returnNodes().map((node, index) => {
+			id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+			return <ListNode key={id} value={node} index={index} handleDeleteNode={this.handleDeleteNode} />;
+		});
 	}
 
 	render() {
@@ -90,7 +94,7 @@ export default class List extends React.Component {
 
 				{showNewNodePrompt ? this.addNewNodePrompt() : null}
 
-				{listNodes} // Rerender when a node is deleted
+				{listNodes}
 
 				<span>null</span>
 			</div>

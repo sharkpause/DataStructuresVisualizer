@@ -46,7 +46,7 @@ export default class ListNode extends React.Component {
 	render() {
 		return (
 			<span>
-				<span onMouseOver={this.showDeleteButton}>{this.state.value}-></span>
+				<span onMouseOver={this.showDeleteButton}>{this.state.value} {this.state.index} - </span>
 
 				{this.state.showDeleteButton ? this.deleteButtonPrompt() : null}
 			</span>
