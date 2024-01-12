@@ -96,7 +96,7 @@ export default class List extends React.Component {
 
 				{listNodes}
 
-				<span>null</span>
+				<span className='container'>null</span>
 			</div>
 		);
 	}

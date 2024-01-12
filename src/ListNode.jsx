@@ -2,6 +2,8 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 export default class ListNode extends React.Component {
 	constructor(props) {
 		super(props);
@@ -37,19 +39,19 @@ export default class ListNode extends React.Component {
 
 	deleteButtonPrompt() {
 		return (
-			<div>
-				<Button onClick={this.deleteNode} onMouseOut={this.hideDeleteButton}>Delete Node</Button>
-			</div>
+			<Button onClick={this.deleteNode} onMouseOut={this.hideDeleteButton} className='me-1'>Delete Node</Button>
 		);
 	}
 
 	render() {
 		return (
-			<span>
-				<span onMouseOver={this.showDeleteButton}>{this.state.value}-></span>
+			<div className='container-fluid'>
 
 				{this.state.showDeleteButton ? this.deleteButtonPrompt() : null}
-			</span>
+
+				<span onMouseOver={this.showDeleteButton}>{this.state.value}</span>
+
+			</div>
 		);
 	}
 }
