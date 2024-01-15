@@ -9,27 +9,27 @@ export default class ListNode extends React.Component {
 		super(props);
 
 		this.state = {
-			showDeleteButton: false,
+			showNodeInteract: false,
 			value: this.props.value,
 			index: this.props.index,
 			handleDeleteNode: this.props.handleDeleteNode
 		};
 
-		this.showDeleteButton = this.showDeleteButton.bind(this);
-		this.hideDeleteButton = this.hideDeleteButton.bind(this);
+		this.showNodeInteractPrompt = this.showNodeInteractPrompt.bind(this);
+		this.hideNodeInteractPrompt = this.hideNodeInteractPrompt.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
-		this.deleteButtonPrompt = this.deleteButtonPrompt.bind(this);
+		this.NodeInteractPrompt = this.NodeInteractPrompt.bind(this);
 	}
 
-	showDeleteButton() {
+	showNodeInteractPrompt() {
 		this.setState({
-			showDeleteButton: true
+			showNodeInteract: true
 		});
 	}
 
-	hideDeleteButton() {
+	hideNodeInteractPrompt() {
 		this.setState({
-			showDeleteButton: false
+			showNodeInteract: false
 		});
 	}
 
@@ -37,19 +37,27 @@ export default class ListNode extends React.Component {
 		this.state.handleDeleteNode(this.state.index);
 	}
 
-	deleteButtonPrompt() {
+	editNode() {
+		;
+	}
+
+	NodeInteractPrompt() {
 		return (
-			<Button onClick={this.deleteNode} onMouseOut={this.hideDeleteButton} className='me-1'>Delete Node</Button>
+			<div onMouseLeave={this.hideNodeInteractPrompt}>
+				<Button onClick={this.deleteNode} className='me-1 btn btn-primary'>Delete node</Button>
+				<br />
+				<Button onClick={this.editNode} className='me-1 btn btn-primary'>Edit node value</Button>
+			</div>
 		);
 	}
 
 	render() {
 		return (
 			<div className='container-fluid'>
+				
+				{this.state.showNodeInteract ? this.NodeInteractPrompt() : null}
 
-				{this.state.showDeleteButton ? this.deleteButtonPrompt() : null}
-
-				<span onMouseOver={this.showDeleteButton}>{this.state.value}</span>
+				<span onMouseOver={this.showNodeInteractPrompt}>{this.state.value}</span>
 
 			</div>
 		);
