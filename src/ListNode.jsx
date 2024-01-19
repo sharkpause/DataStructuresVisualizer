@@ -12,7 +12,8 @@ export default class ListNode extends React.Component {
 			showNodeInteract: false,
 			value: this.props.value,
 			index: this.props.index,
-			handleDeleteNode: this.props.handleDeleteNode
+			handleDeleteNode: this.props.handleDeleteNode,
+			hoveringOver: false
 		};
 
 		this.showNodeInteractPrompt = this.showNodeInteractPrompt.bind(this);
@@ -43,11 +44,11 @@ export default class ListNode extends React.Component {
 
 	NodeInteractPrompt() {
 		return (
-			<div onMouseLeave={this.hideNodeInteractPrompt}>
+			<span onMouseLeave={this.hideNodeInteractPrompt} className='me-5'>
 				<Button onClick={this.deleteNode} className='me-1 btn btn-primary'>Delete node</Button>
 				<br />
 				<Button onClick={this.editNode} className='me-1 btn btn-primary'>Edit node value</Button>
-			</div>
+			</span>
 		);
 	}
 
@@ -57,7 +58,7 @@ export default class ListNode extends React.Component {
 				
 				{this.state.showNodeInteract ? this.NodeInteractPrompt() : null}
 
-				<span onMouseOver={this.showNodeInteractPrompt}>{this.state.value}</span>
+				<span onMouseOver={this.showNodeInteractPrompt} className='btn btn-primary'>{this.state.value}</span>
 
 			</div>
 		);
