@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,13 +14,15 @@ export default class ListNode extends React.Component {
 			value: this.props.value,
 			index: this.props.index,
 			handleDeleteNode: this.props.handleDeleteNode,
-			hoveringOver: false
+			showNodeEdit: false
 		};
 
 		this.showNodeInteractPrompt = this.showNodeInteractPrompt.bind(this);
 		this.hideNodeInteractPrompt = this.hideNodeInteractPrompt.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
-		this.NodeInteractPrompt = this.NodeInteractPrompt.bind(this);
+		this.editNode = this.editNode.bind(this);
+		this.nodeEditPrompt = this.nodeEditPrompt.bind(this);
+		this.nodeInteractPrompt = this.nodeInteractPrompt.bind(this);
 	}
 
 	showNodeInteractPrompt() {
@@ -39,24 +42,44 @@ export default class ListNode extends React.Component {
 	}
 
 	editNode() {
-		;
+		this.setState({
+			showNodeEdit: true
+		});
 	}
 
-	NodeInteractPrompt() {
+	nodeInteractPrompt() {
 		return (
 			<span onMouseLeave={this.hideNodeInteractPrompt} className='me-5'>
 				<Button onClick={this.deleteNode} className='me-1 btn btn-primary'>Delete node</Button>
 				<br />
 				<Button onClick={this.editNode} className='me-1 btn btn-primary'>Edit node value</Button>
+
+				{this.state.showNodeEdit ? this.nodeEditPrompt() : null}
+			</span>
+		);
+	}
+	// When user clicks on edit button, replace interact prompt with edit prompt and only disappear when click cancel
+	nodeEditPrompt() {
+		return (
+			<span>
+				<Form>
+					<Form.Group>
+
+						<Form.Label>Enter node value</Form.Label>
+						<Form.Control type='text' />
+						<Button>Add node</Button>
+
+					</Form.Group>
+				</Form>
 			</span>
 		);
 	}
 
 	render() {
 		return (
-			<div className='container-fluid'>
+			<div className='container-fluid mb-2'>
 				
-				{this.state.showNodeInteract ? this.NodeInteractPrompt() : null}
+				{this.state.showNodeInteract ? this.nodeInteractPrompt() : null}
 
 				<span onMouseOver={this.showNodeInteractPrompt} className='btn btn-primary'>{this.state.value}</span>
 
