@@ -23,6 +23,7 @@ export default class ListNode extends React.Component {
 		this.editNode = this.editNode.bind(this);
 		this.nodeEditPrompt = this.nodeEditPrompt.bind(this);
 		this.nodeInteractPrompt = this.nodeInteractPrompt.bind(this);
+		this.cancelEditNode = this.cancelEditNode.bind(this);
 	}
 
 	showNodeInteractPrompt() {
@@ -47,14 +48,28 @@ export default class ListNode extends React.Component {
 		});
 	}
 
+	cancelEditNode() {
+		this.setState({
+			showNodeEdit: false,
+			showNodeInteract: false
+		});
+	}
+
 	nodeInteractPrompt() {
+		if(this.state.showNodeEdit) {
+			return (
+				<span>
+					{this.state.showNodeEdit ? this.nodeEditPrompt() : null}
+				</span>
+			);
+		}
+
 		return (
 			<span onMouseLeave={this.hideNodeInteractPrompt} className='me-5'>
 				<Button onClick={this.deleteNode} className='me-1 btn btn-primary'>Delete node</Button>
 				<br />
 				<Button onClick={this.editNode} className='me-1 btn btn-primary'>Edit node value</Button>
 
-				{this.state.showNodeEdit ? this.nodeEditPrompt() : null}
 			</span>
 		);
 	}
@@ -66,8 +81,11 @@ export default class ListNode extends React.Component {
 					<Form.Group>
 
 						<Form.Label>Enter node value</Form.Label>
-						<Form.Control type='text' />
-						<Button>Add node</Button>
+						<Form.Control type='text' className='mb-1' />
+						<span>
+							<Button>Add node</Button>
+							<Button className='btn-danger' onClick={this.cancelEditNode}>Cancel</Button>
+						</span>
 
 					</Form.Group>
 				</Form>
