@@ -57,6 +57,12 @@ export default class List extends React.Component {
 		});
 	}
 
+	handleEditNode(index, value) {
+		const newLinkedList = new LinkedList();
+		newLinkedList.copyList(this.state.LinkedList);
+		//newLinkedList.insert(index, value);
+	}
+
 	addNewNodePrompt() {
 		return (
 			<Form>
@@ -75,7 +81,7 @@ export default class List extends React.Component {
 		let id;
 		return this.state.LinkedList.returnNodes().map((node, index) => {
 			id = Date.now().toString(36) + Math.random().toString(36).substr(2);
-			return <ListNode key={id} value={node} index={index} handleDeleteNode={this.handleDeleteNode} />;
+			return <ListNode key={id} value={node} index={index} handleDeleteNode={this.handleDeleteNode} handleEditNode={this.handleEditNode} />;
 		});
 	}
 

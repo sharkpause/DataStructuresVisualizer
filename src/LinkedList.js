@@ -16,6 +16,10 @@ export default class LinkedList {
 		++this.size;
 	}
 
+	insert(index, val) {
+		// insert
+	}
+
 	removeAt(index) {
 		if(index === 0) return this.removeFirst();
 		if(index === this.size-1) return this.removeLast();

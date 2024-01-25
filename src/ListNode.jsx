@@ -14,16 +14,20 @@ export default class ListNode extends React.Component {
 			value: this.props.value,
 			index: this.props.index,
 			handleDeleteNode: this.props.handleDeleteNode,
-			showNodeEdit: false
+			handleEditNode: this.props.handleEditNode,
+			showNodeEdit: false,
+			editPromptValue: 0
 		};
 
 		this.showNodeInteractPrompt = this.showNodeInteractPrompt.bind(this);
 		this.hideNodeInteractPrompt = this.hideNodeInteractPrompt.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
 		this.editNode = this.editNode.bind(this);
+		this.showEditNode = this.showEditNode.bind(this);
 		this.nodeEditPrompt = this.nodeEditPrompt.bind(this);
 		this.nodeInteractPrompt = this.nodeInteractPrompt.bind(this);
 		this.cancelEditNode = this.cancelEditNode.bind(this);
+		this.updateEditPromptValue = this.updateEditPromptValue.bind(this);
 	}
 
 	showNodeInteractPrompt() {
@@ -43,6 +47,10 @@ export default class ListNode extends React.Component {
 	}
 
 	editNode() {
+		this.state.handleEditNode(this.state.index, this.state.editPromptValue);
+	}
+
+	showEditNode() {
 		this.setState({
 			showNodeEdit: true
 		});
@@ -68,12 +76,18 @@ export default class ListNode extends React.Component {
 			<span onMouseLeave={this.hideNodeInteractPrompt} className='me-5'>
 				<Button onClick={this.deleteNode} className='me-1 btn btn-primary'>Delete node</Button>
 				<br />
-				<Button onClick={this.editNode} className='me-1 btn btn-primary'>Edit node value</Button>
+				<Button onClick={this.showEditNode} className='me-1 btn btn-primary'>Edit node value</Button>
 
 			</span>
 		);
 	}
-	// When user clicks on edit button, replace interact prompt with edit prompt and only disappear when click cancel
+
+	updateEditPromptValue(event) {
+		this.setState({
+			editPromptValue: event.target.value
+		});
+	}
+
 	nodeEditPrompt() {
 		return (
 			<span>
@@ -81,10 +95,10 @@ export default class ListNode extends React.Component {
 					<Form.Group>
 
 						<Form.Label>Enter node value</Form.Label>
-						<Form.Control type='text' className='mb-1' />
+						<Form.Control type='text' className='mb-1' onChange={this.updateEditPromptValue} />
 						<span>
-							<Button>Add node</Button>
-							<Button className='btn-danger' onClick={this.cancelEditNode}>Cancel</Button>
+							<Button className='btn-primary btn' onClick={this.editNode}>Add node</Button>
+							<Button className='btn-danger btn' onClick={this.cancelEditNode}>Cancel</Button>
 						</span>
 
 					</Form.Group>
