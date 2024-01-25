@@ -22,6 +22,7 @@ export default class List extends React.Component {
 		this.addNewNodePrompt = this.addNewNodePrompt.bind(this);
 		this.getListNodes = this.getListNodes.bind(this);
 		this.handleDeleteNode = this.handleDeleteNode.bind(this);
+		this.handleEditNode = this.handleEditNode.bind(this);
 	}
 
 	updateAddNewNodeValue(event) {
@@ -60,7 +61,11 @@ export default class List extends React.Component {
 	handleEditNode(index, value) {
 		const newLinkedList = new LinkedList();
 		newLinkedList.copyList(this.state.LinkedList);
-		//newLinkedList.insert(index, value);
+		newLinkedList.edit(index, value);
+
+		this.setState({
+			LinkedList: newLinkedList
+		});
 	}
 
 	addNewNodePrompt() {

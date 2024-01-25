@@ -17,7 +17,37 @@ export default class LinkedList {
 	}
 
 	insert(index, val) {
-		// insert
+		if(index >= this.size) return;
+		if(index === this.size-1) return this.addNode(val);
+		if(index === 0) return this.addFirst(val);
+
+		let pointer = this.head;
+
+		for(let i = 0; i < index - 1; ++i, pointer = pointer.next) {}
+
+		let next = pointer.next;
+		
+		const newNode = new Node(val);
+		pointer.next = newNode;
+		newNode.next = next;
+	}
+
+	edit(index, val) {
+		let pointer = this.head;
+
+		for(let i = 0; i < index; ++i, pointer = pointer.next) {console.log(pointer, i)}
+
+		pointer.val = val;
+	}
+
+	addFirst(val) {
+		if(this.size <= 0) return this.addNode(val);
+
+		const newNode = new Node(val);
+		const oldHead = this.head;
+
+		newNode.next = oldHead;
+		this.head = newNode;
 	}
 
 	removeAt(index) {
@@ -88,12 +118,14 @@ class Node {
 
 //const list = new LinkedList();
 //
+//list.addFirst(5);
 //list.addNode(10);
 //list.addNode(20);
 //list.addNode(30);
 //list.addNode(40);
+//list.insert(2, 25);
 //list.addNode(50);
-//
+
 //const copiedList = new LinkedList();
 //copiedList.copyList(list);
 //
