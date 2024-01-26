@@ -5,6 +5,9 @@ import Form from 'react-bootstrap/Form';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+
 export default class ListNode extends React.Component {
 	constructor(props) {
 		super(props);
@@ -16,7 +19,9 @@ export default class ListNode extends React.Component {
 			handleDeleteNode: this.props.handleDeleteNode,
 			handleEditNode: this.props.handleEditNode,
 			showNodeEdit: false,
-			editPromptValue: 0
+			editPromptValue: 0,
+			showInsertNode: false,
+			showInsertNodeForm: false
 		};
 
 		this.showNodeInteractPrompt = this.showNodeInteractPrompt.bind(this);
@@ -28,6 +33,11 @@ export default class ListNode extends React.Component {
 		this.nodeInteractPrompt = this.nodeInteractPrompt.bind(this);
 		this.cancelEditNode = this.cancelEditNode.bind(this);
 		this.updateEditPromptValue = this.updateEditPromptValue.bind(this);
+		this.showInsertNodePrompt = this.showInsertNodePrompt.bind(this);
+		this.hideInsertNodePrompt = this.hideInsertNodePrompt.bind(this);
+		this.insertNodePrompt = this.insertNodePrompt.bind(this);
+		this.showInsertNodeForm = this.showInsertNodeForm.bind(this);
+		this.hideInsertNodeForm = this.hideInsertNodeForm.bind(this);
 	}
 
 	showNodeInteractPrompt() {
@@ -39,6 +49,31 @@ export default class ListNode extends React.Component {
 	hideNodeInteractPrompt() {
 		this.setState({
 			showNodeInteract: false
+		});
+	}
+
+	showInsertNodePrompt() {
+		this.setState({
+			showInsertNode: true
+		});
+	}
+
+	hideInsertNodePrompt() {
+		this.setState({
+			showInsertNode: false
+		});
+	}
+
+	showInsertNodeForm() {
+		this.setState({
+			showInsertNodeForm: true,
+		});
+	}
+
+	hideInsertNodeForm() {
+		this.setState({
+			showInsertNodeForm: false,
+			showInsertNode: false
 		});
 	}
 
@@ -107,13 +142,45 @@ export default class ListNode extends React.Component {
 		);
 	}
 
+	insertNodePrompt() {
+		if(this.state.showInsertNodeForm) {
+			return (
+				<span>
+					<Form>
+						<Form.Group>
+
+							<Form.Label>Enter node value</Form.Label>
+							<Form.Control type='text' className='mb-1' />
+							<span>
+								<Button className='btn-primary btn'>Insert node</Button>
+								<Button className='btn-danger btn' onClick={this.hideInsertNodeForm}>Cancel</Button>
+							</span>
+
+						</Form.Group>
+					</Form>
+				</span>
+			);
+		}
+		return (
+			<div className='mt-3'>
+				<Button className='btn-primary btn' onClick={this.showInsertNodeForm} onMouseLeave={this.hideInsertNodePrompt}>Insert node</Button>
+			</div>
+		);
+	}
+
 	render() {
 		return (
 			<div className='container-fluid mb-2'>
 				
 				{this.state.showNodeInteract ? this.nodeInteractPrompt() : null}
 
-				<span onMouseOver={this.showNodeInteractPrompt} className='btn btn-primary'>{this.state.value}</span>
+				<div onMouseOver={this.showNodeInteractPrompt} className='btn btn-primary'>{this.state.value}</div>
+
+				<br />
+
+				{this.state.showInsertNode ? this.insertNodePrompt() : null}
+
+				<FontAwesomeIcon icon={faArrowDown} className='mt-3 mb-3' onMouseOver={this.showInsertNodePrompt} />
 
 			</div>
 		);
