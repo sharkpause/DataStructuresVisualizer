@@ -38,6 +38,7 @@ export default class List extends React.Component {
 
 		this.setState({
 			LinkedList: newLinkedList,
+			addNewNodeValue: 0,
 			showNewNodePrompt: false
 		});
 	}
