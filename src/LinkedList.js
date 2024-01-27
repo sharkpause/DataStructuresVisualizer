@@ -19,11 +19,10 @@ export default class LinkedList {
 	insert(index, val) {
 		if(index >= this.size) return;
 		if(index === this.size-1) return this.addNode(val);
-		if(index === 0) return this.addFirst(val);
 
 		let pointer = this.head;
 
-		for(let i = 0; i < index - 1; ++i, pointer = pointer.next) {}
+		for(let i = 0; i < index; ++i, pointer = pointer.next) {}
 
 		let next = pointer.next;
 		

@@ -23,6 +23,8 @@ export default class List extends React.Component {
 		this.getListNodes = this.getListNodes.bind(this);
 		this.handleDeleteNode = this.handleDeleteNode.bind(this);
 		this.handleEditNode = this.handleEditNode.bind(this);
+		this.handleInsertNode = this.handleInsertNode.bind(this);
+		this.cancelAddNewNode = this.cancelAddNewNode.bind(this);
 	}
 
 	updateAddNewNodeValue(event) {
@@ -48,6 +50,13 @@ export default class List extends React.Component {
 			showNewNodePrompt: true
 		});
 	}
+	
+	cancelAddNewNode() {
+		this.setState({
+			showNewNodePrompt: false,
+			addNewNodeValue: 0
+		});
+	}
 
 	handleDeleteNode(index) {
 		const newLinkedList = new LinkedList();
@@ -68,6 +77,16 @@ export default class List extends React.Component {
 			LinkedList: newLinkedList
 		});
 	}
+	
+	handleInsertNode(index, value) {
+		const newLinkedList = new LinkedList();
+		newLinkedList.copyList(this.state.LinkedList);
+		newLinkedList.insert(index, value);
+
+		this.setState({
+			LinkedList: newLinkedList
+		});
+	}
 
 	addNewNodePrompt() {
 		return (
@@ -76,7 +95,8 @@ export default class List extends React.Component {
 
 					<Form.Label>Enter node value</Form.Label>
 					<Form.Control type='text' onChange={this.updateAddNewNodeValue} />
-					<Button onClick={() => this.addNewNode(this.state.addNewNodeValue)}>Add node</Button>
+					<Button onClick={() => this.addNewNode(this.state.addNewNodeValue)} className='btn btn-primary'>Add node</Button>
+					<Button onClick={this.cancelAddNewNode} className='btn btn-danger'>Cancel</Button>
 
 				</Form.Group>
 			</Form>
@@ -87,7 +107,7 @@ export default class List extends React.Component {
 		let id;
 		return this.state.LinkedList.returnNodes().map((node, index) => {
 			id = Date.now().toString(36) + Math.random().toString(36).substr(2);
-			return <ListNode key={id} value={node} index={index} handleDeleteNode={this.handleDeleteNode} handleEditNode={this.handleEditNode} />;
+			return <ListNode key={id} value={node} index={index} handleDeleteNode={this.handleDeleteNode} handleEditNode={this.handleEditNode} handleInsertNode={this.handleInsertNode} />;
 		});
 	}
 

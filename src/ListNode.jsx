@@ -18,8 +18,10 @@ export default class ListNode extends React.Component {
 			index: this.props.index,
 			handleDeleteNode: this.props.handleDeleteNode,
 			handleEditNode: this.props.handleEditNode,
+			handleInsertNode: this.props.handleInsertNode,
 			showNodeEdit: false,
 			editPromptValue: 0,
+			insertPromptValue: 0,
 			showInsertNode: false,
 			showInsertNodeForm: false
 		};
@@ -28,11 +30,13 @@ export default class ListNode extends React.Component {
 		this.hideNodeInteractPrompt = this.hideNodeInteractPrompt.bind(this);
 		this.deleteNode = this.deleteNode.bind(this);
 		this.editNode = this.editNode.bind(this);
+		this.insertNode = this.insertNode.bind(this);
 		this.showEditNode = this.showEditNode.bind(this);
 		this.nodeEditPrompt = this.nodeEditPrompt.bind(this);
 		this.nodeInteractPrompt = this.nodeInteractPrompt.bind(this);
 		this.cancelEditNode = this.cancelEditNode.bind(this);
 		this.updateEditPromptValue = this.updateEditPromptValue.bind(this);
+		this.updateInsertPromptValue = this.updateInsertPromptValue.bind(this);
 		this.showInsertNodePrompt = this.showInsertNodePrompt.bind(this);
 		this.hideInsertNodePrompt = this.hideInsertNodePrompt.bind(this);
 		this.insertNodePrompt = this.insertNodePrompt.bind(this);
@@ -84,6 +88,10 @@ export default class ListNode extends React.Component {
 	editNode() {
 		this.state.handleEditNode(this.state.index, this.state.editPromptValue);
 	}
+	
+	insertNode() {
+		this.state.handleInsertNode(this.state.index, this.state.insertPromptValue);
+	}
 
 	showEditNode() {
 		this.setState({
@@ -123,6 +131,12 @@ export default class ListNode extends React.Component {
 		});
 	}
 
+	updateInsertPromptValue(event) {
+		this.setState({
+			insertPromptValue: event.target.value
+		});
+	}
+
 	nodeEditPrompt() {
 		return (
 			<span>
@@ -150,9 +164,9 @@ export default class ListNode extends React.Component {
 						<Form.Group>
 
 							<Form.Label>Enter node value</Form.Label>
-							<Form.Control type='text' className='mb-1' />
+							<Form.Control type='text' className='mb-1' onChange={this.updateInsertPromptValue} />
 							<span>
-								<Button className='btn-primary btn'>Insert node</Button>
+								<Button className='btn-primary btn' onClick={this.insertNode}>Insert node</Button>
 								<Button className='btn-danger btn' onClick={this.hideInsertNodeForm}>Cancel</Button>
 							</span>
 
